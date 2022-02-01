@@ -2,21 +2,12 @@ import paho.mqtt.client as mqtt
 import time
 
 def on_message(client, userdata, message):
-    print(f"Received message: {str(message.payload)}")
+    print(f"Received message: {message.payload}")
 
-mqttBroker = "mqtt.eclipseprojects.io"
-client = mqtt.Client("HQ")
-print(".", end="")
-client.connect(mqttBroker, port=80)
-print(".", end="")
 
-client.loop_start()
-print(".", end="")
-client.subscribe("SPEED")
-print(".", end="")
-client.on_message = on_message
-print(".", end="")
-time.sleep(30)
-print(".", end="")
-# client.loop_end()
-client.loop_stop()
+if __name__ == "__main__":
+    client = mqtt.Client("HQ")
+    client.connect(host="127.0.0.1", port=1883)
+    client.subscribe("SPEED")
+    client.on_message = on_message
+    client.loop_forever()
