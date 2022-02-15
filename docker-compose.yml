@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    networks:
+      - iot
+  
+  influxdb:
+    image: influxdb
+    restart: always
+    ports:
+      - "8086:8086"
+    networks:
+      - iot
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+    environment:
+      - INFLUXDB_USER=uracing
+      - INFLUXDB_USER_PASSWORD=password
+      - INFLUXDB_ADMIN_ENABLED=true
+      - INFLUXDB_ADMIN_USER=admin 
+      - INFLUXDB_ADMIN_PASSWORD=password
+  
+  telegraf:
+    image: telegraf
+    restart: always
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    depends_on:
+      - mosquitto
+      - influxdb
+    networks:
+      - iot
+  
+  grafana:
+    image: grafana/grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - iot
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=pr0ps-trackmap-panel,michaeldmoore-scatter-panel
+      - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=1s
+
+networks:
+  iot:
+
+volumes:
+  influxdb-data:
+  grafana-data:
