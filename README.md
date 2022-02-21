@@ -25,6 +25,11 @@ docker run -it --name mosquitto -p 1883:1883 -v $(pwd)/mosquitto:/mosquitto/ ecl
 
 ## Publish
 mosquitto_pub -t "Topic" -m "Message"
+docker container exec mqtt_protocol_mosquitto_1 mosquitto_pub -t "bedroom/temperature" -m "bedroom_temperature celsius=20"
 
 ## Subscribe
 mosquitto_sub -t "Topic"
+
+## With docker-compose
+docker-compose up
+docker container exec mqtt_protocol_mosquitto_1 mosquitto_pub -t "bedroom/temperature" -m "bedroom_temperature celsius=20"
