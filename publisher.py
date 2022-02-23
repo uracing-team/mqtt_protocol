@@ -1,14 +1,12 @@
 import paho.mqtt.client as mqtt
+import sys
 
-mqttBroker = "127.0.0.1"
-port = 1883
+client = mqtt.Client()
 
-def on_publish(client, userdata, result):
-    print("Data published")
-    pass
+if client.connect("localhost", 1883, 60) != 0:
+    print("Could not connect to MQTT Broker!")
+    sys.exit(-1)
 
-client = mqtt.Client("Speed_sensor")
-client.on_publish = on_publish
-client.connect(mqttBroker, port)
-ret = client.publish("speed", "300")
+client.publish("bedroom/temperature", "bedroom_temperature celsius=15", 0)
 
+client.disconnect
