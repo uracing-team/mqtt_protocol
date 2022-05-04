@@ -2,13 +2,17 @@ version: "3.8"
 
 services:
   mosquitto:
-    image: eclipse-mosquitto:1.6.15
+    image: eclipse-mosquitto:2.0
     restart: always
     ports:
       - "1883:1883"
       - "9001:9001"
     networks:
       - iot
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
   
   influxdb:
     image: influxdb:1.8
@@ -27,7 +31,7 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=password
   
   telegraf:
-    image: telegraf
+    image: telegraf:1.18
     restart: always
     volumes:
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
@@ -60,3 +64,5 @@ networks:
 volumes:
   influxdb-data:
   grafana-data:
+  mosquitto_data:
+  mosquitto_log:

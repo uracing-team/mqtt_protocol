@@ -40,11 +40,17 @@ if __name__ == "__main__":
     """
 
     for row in rows:
-        print(f"Session Time {row[0]} seconds", end="\r")
+        hours = int(float(row[0])/3600)
+        minutes = int((float(row[0])%3600)/60)
+        seconds = round(float(row[0])%60, 3)
+        print(f"Session Time {hours}:{minutes}:{seconds}", end="\r")
         client.publish("uracing/demo", f"speed km/h={row[3]}", 0)
         client.publish("uracing/demo", f"gear disc={row[7]}", 0)
         client.publish("uracing/demo", f"enginerpm rpm={row[8]}", 0)
         client.publish("uracing/demo", f"enginetemperature celsius={row[9]}", 0)
         sleep(0.05)
+        # break
 
     client.disconnect
+
+    print("Client disconected")
