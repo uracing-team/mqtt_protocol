@@ -13,13 +13,16 @@ if __name__ == "__main__":
     # IP Addresses
     felipe = "191.125.6.109"
     localhost = "localhost"
-    iggy = "192.168.0.10"
-    iggy_2 = "190.160.227.214"
+    iggy = "192.168.0.10"  
+    iggy_2 = "190.160.227.214"  # external ip address
+    iggy_3 = "172.23.64.1"  # Adaptador de Ethernet vEthernet (Default Switch)
+    iggy_4 = "192.168.0.6" # Adaptador de LAN inalámbrica Wi-Fi 
+    iggy_5 = "169.254.72.77"  # Adaptador de Ethernet Ethernet 3
 
     port_1 = 1883
     port_2 = 9001
 
-    if client.connect(iggy_2, port_1, 60) != 0:
+    if client.connect(iggy_4, port_1, 60) != 0:
         print("Could not connect to MQTT Broker!")
         sys.exit(-1)
 
