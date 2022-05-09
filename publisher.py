@@ -14,8 +14,12 @@ if __name__ == "__main__":
     felipe = "191.125.6.109"
     localhost = "localhost"
     iggy = "192.168.0.10"
+    iggy_2 = "190.160.227.214"
 
-    if client.connect("localhost", 1883, 60) != 0:
+    port_1 = 1883
+    port_2 = 9001
+
+    if client.connect(iggy_2, port_1, 60) != 0:
         print("Could not connect to MQTT Broker!")
         sys.exit(-1)
 
