@@ -15,11 +15,12 @@ if __name__ == "__main__":
     localhost = "localhost"
     iggy_external = "190.160.227.214"  # external ip address -> requires router port fowarding
     iggy_internal = "192.168.0.6" # internal ip address -> works when theyre in the same network
+    uracing_pc_local_ip = "192.168.1.43"
 
     port_1 = 1883
     port_2 = 9001
 
-    if client.connect(iggy_internal, port_1, 60) != 0:
+    if client.connect(localhost, port_1, 60) != 0:
         print("Could not connect to MQTT Broker!")
         sys.exit(-1)
 
