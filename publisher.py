@@ -20,7 +20,7 @@ if __name__ == "__main__":
     port_1 = 1883
     port_2 = 9001
 
-    if client.connect(localhost, port_1, 60) != 0:
+    if client.connect(uracing_pc_local_ip, port_1, 60) != 0:
         print("Could not connect to MQTT Broker!")
         sys.exit(-1)
 

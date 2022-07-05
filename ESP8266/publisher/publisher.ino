@@ -31,23 +31,26 @@ void loop() {
         reconnect();
     }
     MQTTPOST();
-    delay(5000);//delay 5 Sec
+    delay(1000);  // Publish Frequency (1000 = 1s)
 }
 
-void MQTTPOST() {
-    //payload formation begins here
-    String payload = "weight kg=150";
-    /*
-    String payload ="{";
-    payload +="\"Temp\":"; payload +=10; payload +=",";
-    payload +="\"Humi\":"; payload +=20;
-    payload +="}";
-    */
+String payload_1;
 
-    char attributes[1000];
-    payload.toCharArray( attributes, 1000 );
-    client.publish("test", attributes); //topic="test" MQTT data post command.
-    Serial.println( attributes );
+void MQTTPOST() {
+    while (payload_1.length() < 1) {
+        
+        if (Serial.available()) {
+            payload_1 = Serial.readString();
+        }
+        
+        if (payload_1.length() > 0) {
+            char attributes_1[1000];
+            payload_1.toCharArray(attributes_1, 1000);
+            client.publish("test", attributes_1);
+            Serial.println(attributes_1);
+        }
+        payload_1 = "";
+    }
 }
 
 //this function helps you reconnect wifi as well as broker if connection gets disconnected.
