@@ -25,7 +25,7 @@ with open(csv_file, 'r') as csv_file:
 def write_read(x):
     # arduino.write(bytes(x, 'utf-8'))
     arduino.write(x.encode('utf-8'))
-    time.sleep(1)  # Data Frequency
+    time.sleep(0.75)                               # Data Frequency
     data = arduino.readline()
     # data = "Testing"
     return data
@@ -40,9 +40,10 @@ while True:
 
 for row in rows:
     # num = input("Enter a number: ") # Taking input from user
-    payload = f"speed km/h={row[3]}"
+    payload_1 = f"speed km/h={row[3]}"
+    # payload_2 = f"gear disc={row[7]}"
     # value = write_read(payload)
-    value = write_read(payload).decode()
+    value = write_read(payload_1).decode()
     """
     print(value)
     print(type(value))

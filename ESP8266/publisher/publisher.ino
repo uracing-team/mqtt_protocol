@@ -31,7 +31,7 @@ void loop() {
         reconnect();
     }
     MQTTPOST();
-    delay(1000);  // Publish Frequency (1000 = 1s)
+    delay(750);  // Publish Frequency (1000 = 1s)
 }
 
 String payload_1;
