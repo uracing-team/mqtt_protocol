@@ -45,12 +45,12 @@ if __name__ == "__main__":
         sleep(0.5)
     """
 
-    payload = json.dumps([
+    payload = json.dumps(
         {
             "measurement": "speed",
-            "km/h": 200
+            "someValue": 200
         }
-    ])
+    )
 
     for row in rows:
         hours = int(float(row[0])/3600)
@@ -64,9 +64,9 @@ if __name__ == "__main__":
         client.publish("uracing/demo", f"enginetemperature celsius={row[9]}", 0)
         """
         client.publish("test", payload)
+        
+        sleep(5)  # dataset frequency is 0.05 seconds per data point
         break
-        sleep(0.05)
-        # break
 
     client.disconnect
 
