@@ -6,6 +6,14 @@ import paho.mqtt.client as mqtt
 import sys
 import csv
 import json
+from datetime import datetime
+import pytz
+
+
+def unix_extractor(date_time):
+    ms = date_time.strftime("%Y-%m-%dT%H:%M:%S:%f")
+    format = datetime.strptime(ms, "%Y-%m-%dT%H:%M:%S:%f")
+    return datetime.timestamp(format)
 
 
 if __name__ == "__main__":
@@ -45,12 +53,24 @@ if __name__ == "__main__":
         sleep(0.5)
     """
 
-    payload = json.dumps(
+    tz_chile = "America/Santiago"
+    t0 = datetime.now()
+    t0_unix = unix_extractor(t0)
+    time_delta = 1
+    t1_unix = t0_unix + time_delta
+
+    payload = json.dumps([
         {
             "measurement": "speed",
-            "someValue": 200
+            "km/h": 200,
+            "t0": str(t0_unix)
+        },
+        {
+            "measurement": "speed",
+            "km/h": 215,
+            "t0": str(t1_unix)
         }
-    )
+    ])
 
     for row in rows:
         hours = int(float(row[0])/3600)
