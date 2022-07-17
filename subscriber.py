@@ -11,8 +11,9 @@ topics = [
 ]
 
 if __name__ == "__main__":
+    host = ""  # Replace this with IP address of machine
     client = mqtt.Client("HQ")
-    client.connect(host="192.168.1.43", port=1883)
+    client.connect(host=host, port=1883)
     client.subscribe("test")
     client.on_message = on_message
     client.loop_forever()

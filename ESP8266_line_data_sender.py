@@ -40,10 +40,10 @@ while True:
 
 for row in rows:
     # num = input("Enter a number: ") # Taking input from user
-    payload_1 = f"speed km/h={row[3]}"
+    payload = f"speed km/h={row[3]}"
     # payload_2 = f"gear disc={row[7]}"
     # value = write_read(payload)
-    value = write_read(payload_1).decode()
+    value = write_read(payload).decode()
     """
     print(value)
     print(type(value))

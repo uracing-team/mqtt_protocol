@@ -11,11 +11,7 @@ if __name__ == "__main__":
     client = mqtt.Client()
 
     # IP Addresses
-    felipe = "191.125.6.109"
-    localhost = "localhost"
-    iggy_external = "190.160.227.214"  # external ip address -> requires router port fowarding
-    iggy_internal = "192.168.0.6" # internal ip address -> works when theyre in the same network
-    uracing_pc_local_ip = "192.168.1.43"
+    uracing_pc_local_ip = ""  # Replace this with IP address of machine
 
     port_1 = 1883
     port_2 = 9001
